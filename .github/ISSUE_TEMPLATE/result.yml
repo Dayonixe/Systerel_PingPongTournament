@@ -1,0 +1,49 @@
+name: Enregistrer un résultat
+description: Ajouter ou corriger le score d'un match du tournoi
+title: '[Résultat] Match #'
+labels:
+  - resultat
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ce formulaire est traité automatiquement. Seul le compte **Dayonixe** est autorisé à modifier les résultats.
+
+  - type: input
+    id: match
+    attributes:
+      label: Identifiant du match
+      description: Numéro du tableau (par exemple 28) ou identifiant de poule (par exemple P4-01).
+      placeholder: '28'
+    validations:
+      required: true
+
+  - type: input
+    id: sets
+    attributes:
+      label: Sets
+      description: Saisir les points du joueur affiché à gauche puis ceux du joueur affiché à droite.
+      placeholder: '11/7, 8/11, 12/10'
+    validations:
+      required: true
+
+  - type: input
+    id: referee
+    attributes:
+      label: Arbitre
+      description: Initiales de l'arbitre, si elles sont connues.
+      placeholder: 'AHU'
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Facultatif — précision ou motif d'une correction.
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: J'ai vérifié l'ordre des joueurs et tous les scores.
+          required: true

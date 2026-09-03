@@ -1,0 +1,59 @@
+name: Enregistrer un résultat
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: tournament-score-submissions
+  cancel-in-progress: false
+
+jobs:
+  process-result:
+    if: startsWith(github.event.issue.title, '[Résultat]')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le tournoi
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Préparer Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Vérifier et enregistrer le score
+        id: result
+        env:
+          ISSUE_ACTOR: ${{ github.actor }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: node scripts/apply-result.mjs
+
+      - name: Publier la modification
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tournament.json
+          git commit -m "score: ${{ steps.result.outputs.summary }}"
+          git push
+
+      - name: Confirmer et fermer la demande
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          SUMMARY: ${{ steps.result.outputs.summary }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "✅ Résultat enregistré : $SUMMARY. Le site va être actualisé."
+          gh issue close "$ISSUE_NUMBER"
+
+      - name: Signaler une saisie refusée
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: gh issue comment "$ISSUE_NUMBER" --body "❌ La saisie n'a pas été enregistrée. Vérifie le compte utilisé, l'identifiant du match et le format des sets."
