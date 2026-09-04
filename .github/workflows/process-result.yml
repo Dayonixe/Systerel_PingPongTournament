@@ -5,6 +5,7 @@ on:
     types: [opened]
 
 permissions:
+  actions: write
   contents: write
   issues: write
 
@@ -41,6 +42,11 @@ jobs:
           git add data/tournament.json
           git commit -m "score: ${{ steps.result.outputs.summary }}"
           git push
+
+      - name: Relancer la publication du site
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-pages.yml --ref main
 
       - name: Confirmer et fermer la demande
         env:
