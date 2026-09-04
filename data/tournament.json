@@ -3,7 +3,7 @@
     "title": "Tournoi de l'été",
     "subtitle": "Systerel · Ping-pong",
     "administrator": "Dayonixe",
-    "updatedAt": "2026-09-03T13:31:00+02:00",
+    "updatedAt": "2026-09-04T06:28:16.778Z",
     "rules": {
       "setsToWin": 2,
       "pointsToWin": 11,
@@ -12,247 +12,526 @@
     }
   },
   "players": [
-    { "id": 1, "code": "VMO" },
-    { "id": 2, "code": "GRA" },
-    { "id": 3, "code": "JVS" },
-    { "id": 4, "code": "TAN" },
-    { "id": 5, "code": "HMA" },
-    { "id": 6, "code": "MFM" },
-    { "id": 7, "code": "MLA" },
-    { "id": 8, "code": "BLE" },
-    { "id": 9, "code": "AHU" },
-    { "id": 10, "code": "TPI" },
-    { "id": 11, "code": "BAM" },
-    { "id": 12, "code": "TRU" },
-    { "id": 13, "code": "MBO" }
+    {
+      "id": 1,
+      "code": "VMO"
+    },
+    {
+      "id": 2,
+      "code": "GRA"
+    },
+    {
+      "id": 3,
+      "code": "JVS"
+    },
+    {
+      "id": 4,
+      "code": "TAN"
+    },
+    {
+      "id": 5,
+      "code": "HMA"
+    },
+    {
+      "id": 6,
+      "code": "MFM"
+    },
+    {
+      "id": 7,
+      "code": "MLA"
+    },
+    {
+      "id": 8,
+      "code": "BLE"
+    },
+    {
+      "id": 9,
+      "code": "AHU"
+    },
+    {
+      "id": 10,
+      "code": "TPI"
+    },
+    {
+      "id": 11,
+      "code": "BAM"
+    },
+    {
+      "id": 12,
+      "code": "TRU"
+    },
+    {
+      "id": 13,
+      "code": "MBO"
+    }
   ],
   "pools": [
     {
       "id": "P4",
       "name": "Poule P4",
-      "playerIds": [1, 2, 3],
+      "playerIds": [
+        1,
+        2,
+        3
+      ],
       "qualifyingPlaces": 2
     },
     {
       "id": "P3",
       "name": "Poule P3",
-      "playerIds": [4, 5, 6],
+      "playerIds": [
+        4,
+        5,
+        6
+      ],
       "qualifyingPlaces": 2
     },
     {
       "id": "P2",
       "name": "Poule P2",
-      "playerIds": [7, 8, 9],
+      "playerIds": [
+        7,
+        8,
+        9
+      ],
       "qualifyingPlaces": 2
     },
     {
       "id": "P1",
       "name": "Poule P1",
-      "playerIds": [10, 11, 12, 13],
+      "playerIds": [
+        10,
+        11,
+        12,
+        13
+      ],
       "qualifyingPlaces": 2
     }
   ],
   "placementSlots": [
-    { "id": 14, "playerId": 3, "label": "1er P4" },
-    { "id": 15, "playerId": 2, "label": "2e P4" },
-    { "id": 16, "playerId": 1, "label": "3e P4" },
-    { "id": 17, "playerId": 4, "label": "1er P3" },
-    { "id": 18, "playerId": 5, "label": "2e P3" },
-    { "id": 19, "playerId": 6, "label": "3e P3" },
-    { "id": 20, "playerId": 9, "label": "1er P2" },
-    { "id": 21, "playerId": 7, "label": "2e P2" },
-    { "id": 22, "playerId": 8, "label": "3e P2" },
-    { "id": 23, "playerId": 12, "label": "1er P1" },
-    { "id": 24, "playerId": 10, "label": "2e P1" },
-    { "id": 25, "playerId": 11, "label": "3e P1" },
-    { "id": 26, "playerId": 13, "label": "4e P1" }
+    {
+      "id": 14,
+      "playerId": 3,
+      "label": "1er P4"
+    },
+    {
+      "id": 15,
+      "playerId": 2,
+      "label": "2e P4"
+    },
+    {
+      "id": 16,
+      "playerId": 1,
+      "label": "3e P4"
+    },
+    {
+      "id": 17,
+      "playerId": 4,
+      "label": "1er P3"
+    },
+    {
+      "id": 18,
+      "playerId": 5,
+      "label": "2e P3"
+    },
+    {
+      "id": 19,
+      "playerId": 6,
+      "label": "3e P3"
+    },
+    {
+      "id": 20,
+      "playerId": 9,
+      "label": "1er P2"
+    },
+    {
+      "id": 21,
+      "playerId": 7,
+      "label": "2e P2"
+    },
+    {
+      "id": 22,
+      "playerId": 8,
+      "label": "3e P2"
+    },
+    {
+      "id": 23,
+      "playerId": 12,
+      "label": "1er P1"
+    },
+    {
+      "id": 24,
+      "playerId": 10,
+      "label": "2e P1"
+    },
+    {
+      "id": 25,
+      "playerId": 11,
+      "label": "3e P1"
+    },
+    {
+      "id": 26,
+      "playerId": 13,
+      "label": "4e P1"
+    }
   ],
   "matches": [
     {
       "id": "P4-01",
       "phase": "pool",
       "poolId": "P4",
-      "home": { "playerId": 1 },
-      "away": { "playerId": 2 },
+      "home": {
+        "playerId": 1
+      },
+      "away": {
+        "playerId": 2
+      },
       "sets": [
-        [7, 11],
-        [4, 11]
+        [
+          7,
+          11
+        ],
+        [
+          4,
+          11
+        ]
       ]
     },
     {
       "id": "P4-02",
       "phase": "pool",
       "poolId": "P4",
-      "home": { "playerId": 1 },
-      "away": { "playerId": 3 },
+      "home": {
+        "playerId": 1
+      },
+      "away": {
+        "playerId": 3
+      },
       "sets": [
-        [8, 11],
-        [6, 11]
+        [
+          8,
+          11
+        ],
+        [
+          6,
+          11
+        ]
       ]
     },
     {
       "id": "P4-03",
       "phase": "pool",
       "poolId": "P4",
-      "home": { "playerId": 3 },
-      "away": { "playerId": 2 },
+      "home": {
+        "playerId": 3
+      },
+      "away": {
+        "playerId": 2
+      },
       "sets": [
-        [11, 9],
-        [8, 11],
-        [12, 10]
+        [
+          11,
+          9
+        ],
+        [
+          8,
+          11
+        ],
+        [
+          12,
+          10
+        ]
       ]
     },
-
     {
       "id": "P3-01",
       "phase": "pool",
       "poolId": "P3",
-      "home": { "playerId": 4 },
-      "away": { "playerId": 5 },
+      "home": {
+        "playerId": 4
+      },
+      "away": {
+        "playerId": 5
+      },
       "sets": [
-        [8, 11],
-        [11, 5],
-        [11, 9]
+        [
+          8,
+          11
+        ],
+        [
+          11,
+          5
+        ],
+        [
+          11,
+          9
+        ]
       ]
     },
     {
       "id": "P3-02",
       "phase": "pool",
       "poolId": "P3",
-      "home": { "playerId": 4 },
-      "away": { "playerId": 6 },
+      "home": {
+        "playerId": 4
+      },
+      "away": {
+        "playerId": 6
+      },
       "sets": [
-        [11, 1],
-        [11, 0]
+        [
+          11,
+          1
+        ],
+        [
+          11,
+          0
+        ]
       ]
     },
     {
       "id": "P3-03",
       "phase": "pool",
       "poolId": "P3",
-      "home": { "playerId": 5 },
-      "away": { "playerId": 6 },
+      "home": {
+        "playerId": 5
+      },
+      "away": {
+        "playerId": 6
+      },
       "sets": [
-        [11, 1],
-        [11, 3]
+        [
+          11,
+          1
+        ],
+        [
+          11,
+          3
+        ]
       ]
     },
-
     {
       "id": "P2-01",
       "phase": "pool",
       "poolId": "P2",
-      "home": { "playerId": 7 },
-      "away": { "playerId": 8 },
+      "home": {
+        "playerId": 7
+      },
+      "away": {
+        "playerId": 8
+      },
       "sets": [
-        [11, 2],
-        [11, 5]
+        [
+          11,
+          2
+        ],
+        [
+          11,
+          5
+        ]
       ]
     },
     {
       "id": "P2-02",
       "phase": "pool",
       "poolId": "P2",
-      "home": { "playerId": 7 },
-      "away": { "playerId": 9 },
+      "home": {
+        "playerId": 7
+      },
+      "away": {
+        "playerId": 9
+      },
       "sets": [
-        [8, 11],
-        [11, 7],
-        [6, 11]
+        [
+          8,
+          11
+        ],
+        [
+          11,
+          7
+        ],
+        [
+          6,
+          11
+        ]
       ]
     },
     {
       "id": "P2-03",
       "phase": "pool",
       "poolId": "P2",
-      "home": { "playerId": 8 },
-      "away": { "playerId": 9 },
+      "home": {
+        "playerId": 8
+      },
+      "away": {
+        "playerId": 9
+      },
       "sets": [
-        [4, 11],
-        [0, 11]
+        [
+          4,
+          11
+        ],
+        [
+          0,
+          11
+        ]
       ]
     },
-
     {
       "id": "P1-01",
       "phase": "pool",
       "poolId": "P1",
-      "home": { "playerId": 10 },
-      "away": { "playerId": 11 },
+      "home": {
+        "playerId": 10
+      },
+      "away": {
+        "playerId": 11
+      },
       "sets": [
-        [5, 11],
-        [11, 7],
-        [11, 4]
+        [
+          5,
+          11
+        ],
+        [
+          11,
+          7
+        ],
+        [
+          11,
+          4
+        ]
       ]
     },
     {
       "id": "P1-02",
       "phase": "pool",
       "poolId": "P1",
-      "home": { "playerId": 10 },
-      "away": { "playerId": 12 },
+      "home": {
+        "playerId": 10
+      },
+      "away": {
+        "playerId": 12
+      },
       "sets": [
-        [9, 11],
-        [10, 12]
+        [
+          9,
+          11
+        ],
+        [
+          10,
+          12
+        ]
       ]
     },
     {
       "id": "P1-03",
       "phase": "pool",
       "poolId": "P1",
-      "home": { "playerId": 10 },
-      "away": { "playerId": 13 },
+      "home": {
+        "playerId": 10
+      },
+      "away": {
+        "playerId": 13
+      },
       "sets": [
-        [11, 1],
-        [11, 4]
+        [
+          11,
+          1
+        ],
+        [
+          11,
+          4
+        ]
       ]
     },
     {
       "id": "P1-04",
       "phase": "pool",
       "poolId": "P1",
-      "home": { "playerId": 11 },
-      "away": { "playerId": 12 },
+      "home": {
+        "playerId": 11
+      },
+      "away": {
+        "playerId": 12
+      },
       "sets": [
-        [6, 11],
-        [4, 11]
+        [
+          6,
+          11
+        ],
+        [
+          4,
+          11
+        ]
       ]
     },
     {
       "id": "P1-05",
       "phase": "pool",
       "poolId": "P1",
-      "home": { "playerId": 11 },
-      "away": { "playerId": 13 },
+      "home": {
+        "playerId": 11
+      },
+      "away": {
+        "playerId": 13
+      },
       "sets": [
-        [11, 4],
-        [11, 6]
+        [
+          11,
+          4
+        ],
+        [
+          11,
+          6
+        ]
       ]
     },
     {
       "id": "P1-06",
       "phase": "pool",
       "poolId": "P1",
-      "home": { "playerId": 12 },
-      "away": { "playerId": 13 },
+      "home": {
+        "playerId": 12
+      },
+      "away": {
+        "playerId": 13
+      },
       "sets": [
-        [11, 2],
-        [11, 3]
+        [
+          11,
+          2
+        ],
+        [
+          11,
+          3
+        ]
       ]
     },
-
     {
       "id": "27",
       "phase": "main",
       "bracket": "winner",
       "round": 1,
       "roundLabel": "Quarts",
-      "home": { "slotId": 14 },
-      "away": { "slotId": 18 },
+      "home": {
+        "slotId": 14
+      },
+      "away": {
+        "slotId": 18
+      },
       "sets": [
-        [11, 2],
-        [9, 11],
-        [9, 11]
+        [
+          11,
+          2
+        ],
+        [
+          9,
+          11
+        ],
+        [
+          9,
+          11
+        ]
       ]
     },
     {
@@ -261,8 +540,12 @@
       "bracket": "winner",
       "round": 1,
       "roundLabel": "Quarts",
-      "home": { "slotId": 15 },
-      "away": { "slotId": 17 },
+      "home": {
+        "slotId": 15
+      },
+      "away": {
+        "slotId": 17
+      },
       "sets": []
     },
     {
@@ -271,11 +554,21 @@
       "bracket": "winner",
       "round": 1,
       "roundLabel": "Quarts",
-      "home": { "slotId": 20 },
-      "away": { "slotId": 24 },
+      "home": {
+        "slotId": 20
+      },
+      "away": {
+        "slotId": 24
+      },
       "sets": [
-        [4, 11],
-        [6, 11]
+        [
+          4,
+          11
+        ],
+        [
+          6,
+          11
+        ]
       ]
     },
     {
@@ -284,8 +577,12 @@
       "bracket": "winner",
       "round": 1,
       "roundLabel": "Quarts",
-      "home": { "slotId": 21 },
-      "away": { "slotId": 23 },
+      "home": {
+        "slotId": 21
+      },
+      "away": {
+        "slotId": 23
+      },
       "sets": []
     },
     {
@@ -294,12 +591,13 @@
       "bracket": "winner",
       "round": 2,
       "roundLabel": "Demi-finales",
-      "home": { "winnerOf": "27" },
-      "away": { "winnerOf": "29" },
-      "sets": [
-        [13, 11],
-        [13, 11]
-      ]
+      "home": {
+        "winnerOf": "27"
+      },
+      "away": {
+        "winnerOf": "29"
+      },
+      "sets": []
     },
     {
       "id": "32",
@@ -307,8 +605,12 @@
       "bracket": "winner",
       "round": 2,
       "roundLabel": "Demi-finales",
-      "home": { "winnerOf": "28" },
-      "away": { "winnerOf": "30" },
+      "home": {
+        "winnerOf": "28"
+      },
+      "away": {
+        "winnerOf": "30"
+      },
       "sets": []
     },
     {
@@ -317,19 +619,26 @@
       "bracket": "winner",
       "round": 3,
       "roundLabel": "Finale winner",
-      "home": { "winnerOf": "31" },
-      "away": { "winnerOf": "32" },
+      "home": {
+        "winnerOf": "31"
+      },
+      "away": {
+        "winnerOf": "32"
+      },
       "sets": []
     },
-
     {
       "id": "33",
       "phase": "secondary",
       "bracket": "winner",
       "round": 1,
       "roundLabel": "Tour préliminaire",
-      "home": { "slotId": 16 },
-      "away": { "slotId": 26 },
+      "home": {
+        "slotId": 16
+      },
+      "away": {
+        "slotId": 26
+      },
       "sets": []
     },
     {
@@ -338,8 +647,12 @@
       "bracket": "winner",
       "round": 2,
       "roundLabel": "Demi-finales",
-      "home": { "slotId": 22 },
-      "away": { "slotId": 25 },
+      "home": {
+        "slotId": 22
+      },
+      "away": {
+        "slotId": 25
+      },
       "sets": []
     },
     {
@@ -348,8 +661,12 @@
       "bracket": "winner",
       "round": 2,
       "roundLabel": "Demi-finales",
-      "home": { "winnerOf": "33" },
-      "away": { "slotId": 19 },
+      "home": {
+        "winnerOf": "33"
+      },
+      "away": {
+        "slotId": 19
+      },
       "sets": []
     },
     {
@@ -358,19 +675,26 @@
       "bracket": "winner",
       "round": 3,
       "roundLabel": "Finale winner",
-      "home": { "winnerOf": "34" },
-      "away": { "winnerOf": "35" },
+      "home": {
+        "winnerOf": "34"
+      },
+      "away": {
+        "winnerOf": "35"
+      },
       "sets": []
     },
-
     {
       "id": "38",
       "phase": "main",
       "bracket": "loser",
       "round": 1,
       "roundLabel": "Tour 1",
-      "home": { "loserOf": "27" },
-      "away": { "loserOf": "29" },
+      "home": {
+        "loserOf": "27"
+      },
+      "away": {
+        "loserOf": "29"
+      },
       "sets": []
     },
     {
@@ -379,8 +703,12 @@
       "bracket": "loser",
       "round": 1,
       "roundLabel": "Tour 1",
-      "home": { "loserOf": "28" },
-      "away": { "loserOf": "30" },
+      "home": {
+        "loserOf": "28"
+      },
+      "away": {
+        "loserOf": "30"
+      },
       "sets": []
     },
     {
@@ -389,8 +717,12 @@
       "bracket": "loser",
       "round": 2,
       "roundLabel": "Tour 2",
-      "home": { "winnerOf": "38" },
-      "away": { "loserOf": "32" },
+      "home": {
+        "winnerOf": "38"
+      },
+      "away": {
+        "loserOf": "32"
+      },
       "sets": []
     },
     {
@@ -399,8 +731,12 @@
       "bracket": "loser",
       "round": 2,
       "roundLabel": "Tour 2",
-      "home": { "winnerOf": "39" },
-      "away": { "loserOf": "31" },
+      "home": {
+        "winnerOf": "39"
+      },
+      "away": {
+        "loserOf": "31"
+      },
       "sets": []
     },
     {
@@ -409,8 +745,12 @@
       "bracket": "loser",
       "round": 3,
       "roundLabel": "Demi-finale loser",
-      "home": { "winnerOf": "40" },
-      "away": { "winnerOf": "41" },
+      "home": {
+        "winnerOf": "40"
+      },
+      "away": {
+        "winnerOf": "41"
+      },
       "sets": []
     },
     {
@@ -419,8 +759,12 @@
       "bracket": "loser",
       "round": 4,
       "roundLabel": "Finale loser",
-      "home": { "winnerOf": "42" },
-      "away": { "loserOf": "36" },
+      "home": {
+        "winnerOf": "42"
+      },
+      "away": {
+        "loserOf": "36"
+      },
       "sets": []
     },
     {
@@ -429,19 +773,26 @@
       "bracket": "grand-final",
       "round": 5,
       "roundLabel": "Grande finale",
-      "home": { "winnerOf": "36" },
-      "away": { "winnerOf": "43" },
+      "home": {
+        "winnerOf": "36"
+      },
+      "away": {
+        "winnerOf": "43"
+      },
       "sets": []
     },
-
     {
       "id": "45",
       "phase": "secondary",
       "bracket": "loser",
       "round": 1,
       "roundLabel": "Tour 1",
-      "home": { "loserOf": "33" },
-      "away": { "loserOf": "34" },
+      "home": {
+        "loserOf": "33"
+      },
+      "away": {
+        "loserOf": "34"
+      },
       "sets": []
     },
     {
@@ -450,8 +801,12 @@
       "bracket": "loser",
       "round": 2,
       "roundLabel": "Tour 2",
-      "home": { "winnerOf": "45" },
-      "away": { "loserOf": "35" },
+      "home": {
+        "winnerOf": "45"
+      },
+      "away": {
+        "loserOf": "35"
+      },
       "sets": []
     },
     {
@@ -460,8 +815,12 @@
       "bracket": "loser",
       "round": 3,
       "roundLabel": "Finale loser",
-      "home": { "winnerOf": "46" },
-      "away": { "loserOf": "37" },
+      "home": {
+        "winnerOf": "46"
+      },
+      "away": {
+        "loserOf": "37"
+      },
       "sets": []
     },
     {
@@ -470,8 +829,12 @@
       "bracket": "grand-final",
       "round": 4,
       "roundLabel": "Grande finale",
-      "home": { "winnerOf": "37" },
-      "away": { "winnerOf": "47" },
+      "home": {
+        "winnerOf": "37"
+      },
+      "away": {
+        "winnerOf": "47"
+      },
       "sets": []
     }
   ]
