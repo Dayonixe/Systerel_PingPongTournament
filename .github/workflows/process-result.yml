@@ -56,4 +56,4 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
-        run: gh issue comment "$ISSUE_NUMBER" --body "❌ La saisie n'a pas été enregistrée. Vérifie le compte utilisé, l'identifiant du match et le format des sets."
+        run: gh issue comment "$ISSUE_NUMBER" --body "❌ La demande n'a pas été enregistrée. Vérifie le compte utilisé, l'action, l'identifiant du match et, pour un ajout ou une correction, le format des sets."

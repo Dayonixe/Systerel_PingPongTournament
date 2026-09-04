@@ -450,6 +450,7 @@ body::before {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
+  align-items: start;
 }
 
 .pool-card {
@@ -759,6 +760,14 @@ body::before {
   gap: 1rem;
 }
 
+.round-matches.is-top-aligned {
+  justify-content: flex-start;
+}
+
+.round-matches.is-bottom-aligned {
+  justify-content: flex-end;
+}
+
 .bracket-match {
   position: relative;
   border: 1px solid var(--border);
@@ -785,8 +794,7 @@ body::before {
   box-shadow: 3px 3px 0 color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
-.bracket-match > header,
-.bracket-match > footer {
+.bracket-match > header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -800,12 +808,6 @@ body::before {
 
 .bracket-match > header {
   border-bottom: 1px solid var(--border);
-}
-
-.bracket-match > footer {
-  border-top: 1px solid var(--border);
-  letter-spacing: 0.02em;
-  text-transform: none;
 }
 
 .match-status {

@@ -77,8 +77,7 @@
       "sets": [
         [7, 11],
         [4, 11]
-      ],
-      "referee": null
+      ]
     },
     {
       "id": "P4-02",
@@ -89,8 +88,7 @@
       "sets": [
         [8, 11],
         [6, 11]
-      ],
-      "referee": null
+      ]
     },
     {
       "id": "P4-03",
@@ -102,8 +100,7 @@
         [11, 9],
         [8, 11],
         [12, 10]
-      ],
-      "referee": null
+      ]
     },
 
     {
@@ -116,8 +113,7 @@
         [8, 11],
         [11, 5],
         [11, 9]
-      ],
-      "referee": null
+      ]
     },
     {
       "id": "P3-02",
@@ -128,8 +124,7 @@
       "sets": [
         [11, 1],
         [11, 0]
-      ],
-      "referee": null
+      ]
     },
     {
       "id": "P3-03",
@@ -140,8 +135,7 @@
       "sets": [
         [11, 1],
         [11, 3]
-      ],
-      "referee": null
+      ]
     },
 
     {
@@ -153,8 +147,7 @@
       "sets": [
         [11, 2],
         [11, 5]
-      ],
-      "referee": null
+      ]
     },
     {
       "id": "P2-02",
@@ -166,8 +159,7 @@
         [8, 11],
         [11, 7],
         [6, 11]
-      ],
-      "referee": null
+      ]
     },
     {
       "id": "P2-03",
@@ -178,8 +170,7 @@
       "sets": [
         [4, 11],
         [0, 11]
-      ],
-      "referee": null
+      ]
     },
 
     {
@@ -192,8 +183,7 @@
         [5, 11],
         [11, 7],
         [11, 4]
-      ],
-      "referee": null
+      ]
     },
     {
       "id": "P1-02",
@@ -204,8 +194,7 @@
       "sets": [
         [9, 11],
         [10, 12]
-      ],
-      "referee": null
+      ]
     },
     {
       "id": "P1-03",
@@ -216,8 +205,7 @@
       "sets": [
         [11, 1],
         [11, 4]
-      ],
-      "referee": null
+      ]
     },
     {
       "id": "P1-04",
@@ -228,8 +216,7 @@
       "sets": [
         [6, 11],
         [4, 11]
-      ],
-      "referee": null
+      ]
     },
     {
       "id": "P1-05",
@@ -240,8 +227,7 @@
       "sets": [
         [11, 4],
         [11, 6]
-      ],
-      "referee": null
+      ]
     },
     {
       "id": "P1-06",
@@ -252,8 +238,7 @@
       "sets": [
         [11, 2],
         [11, 3]
-      ],
-      "referee": null
+      ]
     },
 
     {
@@ -268,8 +253,7 @@
         [11, 2],
         [9, 11],
         [9, 11]
-      ],
-      "referee": null
+      ]
     },
     {
       "id": "28",
@@ -279,8 +263,7 @@
       "roundLabel": "Quarts",
       "home": { "slotId": 15 },
       "away": { "slotId": 17 },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
     {
       "id": "29",
@@ -293,8 +276,7 @@
       "sets": [
         [4, 11],
         [6, 11]
-      ],
-      "referee": null
+      ]
     },
     {
       "id": "30",
@@ -304,8 +286,7 @@
       "roundLabel": "Quarts",
       "home": { "slotId": 21 },
       "away": { "slotId": 23 },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
     {
       "id": "31",
@@ -318,8 +299,7 @@
       "sets": [
         [13, 11],
         [13, 11]
-      ],
-      "referee": null
+      ]
     },
     {
       "id": "32",
@@ -329,8 +309,7 @@
       "roundLabel": "Demi-finales",
       "home": { "winnerOf": "28" },
       "away": { "winnerOf": "30" },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
     {
       "id": "36",
@@ -340,8 +319,7 @@
       "roundLabel": "Finale winner",
       "home": { "winnerOf": "31" },
       "away": { "winnerOf": "32" },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
 
     {
@@ -352,8 +330,7 @@
       "roundLabel": "Tour préliminaire",
       "home": { "slotId": 16 },
       "away": { "slotId": 26 },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
     {
       "id": "34",
@@ -363,8 +340,7 @@
       "roundLabel": "Demi-finales",
       "home": { "slotId": 22 },
       "away": { "slotId": 25 },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
     {
       "id": "35",
@@ -374,8 +350,7 @@
       "roundLabel": "Demi-finales",
       "home": { "winnerOf": "33" },
       "away": { "slotId": 19 },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
     {
       "id": "37",
@@ -385,8 +360,7 @@
       "roundLabel": "Finale winner",
       "home": { "winnerOf": "34" },
       "away": { "winnerOf": "35" },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
 
     {
@@ -397,8 +371,7 @@
       "roundLabel": "Tour 1",
       "home": { "loserOf": "27" },
       "away": { "loserOf": "29" },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
     {
       "id": "39",
@@ -408,8 +381,7 @@
       "roundLabel": "Tour 1",
       "home": { "loserOf": "28" },
       "away": { "loserOf": "30" },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
     {
       "id": "40",
@@ -419,8 +391,7 @@
       "roundLabel": "Tour 2",
       "home": { "winnerOf": "38" },
       "away": { "loserOf": "32" },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
     {
       "id": "41",
@@ -430,8 +401,7 @@
       "roundLabel": "Tour 2",
       "home": { "winnerOf": "39" },
       "away": { "loserOf": "31" },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
     {
       "id": "42",
@@ -441,8 +411,7 @@
       "roundLabel": "Demi-finale loser",
       "home": { "winnerOf": "40" },
       "away": { "winnerOf": "41" },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
     {
       "id": "43",
@@ -452,8 +421,7 @@
       "roundLabel": "Finale loser",
       "home": { "winnerOf": "42" },
       "away": { "loserOf": "36" },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
     {
       "id": "44",
@@ -463,8 +431,7 @@
       "roundLabel": "Grande finale",
       "home": { "winnerOf": "36" },
       "away": { "winnerOf": "43" },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
 
     {
@@ -475,8 +442,7 @@
       "roundLabel": "Tour 1",
       "home": { "loserOf": "33" },
       "away": { "loserOf": "34" },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
     {
       "id": "46",
@@ -486,8 +452,7 @@
       "roundLabel": "Tour 2",
       "home": { "winnerOf": "45" },
       "away": { "loserOf": "35" },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
     {
       "id": "47",
@@ -497,8 +462,7 @@
       "roundLabel": "Finale loser",
       "home": { "winnerOf": "46" },
       "away": { "loserOf": "37" },
-      "sets": [],
-      "referee": null
+      "sets": []
     },
     {
       "id": "48",
@@ -508,8 +472,7 @@
       "roundLabel": "Grande finale",
       "home": { "winnerOf": "37" },
       "away": { "winnerOf": "47" },
-      "sets": [],
-      "referee": null
+      "sets": []
     }
   ]
 }

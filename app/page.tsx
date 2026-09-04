@@ -83,11 +83,58 @@ function BracketMatch({ match }: { match: Match }) {
       </header>
       {participant('home', home, match.home)}
       {participant('away', away, match.away)}
-      <footer>
-        {match.referee ? `Arbitre · ${match.referee}` : 'Arbitre à définir'}
-      </footer>
     </article>
   );
+}
+
+function getSourceMatchIds(match: Match) {
+  return [match.home, match.away].flatMap((participant) => {
+    if ('winnerOf' in participant) return [participant.winnerOf];
+    if ('loserOf' in participant) return [participant.loserOf];
+    return [];
+  });
+}
+
+function getVisualRounds(matches: Match[]) {
+  const rounds = [...new Set(matches.map((match) => match.round ?? 0))].map(
+    (round) => ({
+      round,
+      matches: matches.filter((match) => match.round === round),
+    }),
+  );
+
+  for (let index = 1; index < rounds.length; index += 1) {
+    const previousOrder = new Map(
+      rounds[index - 1].matches.map((match, position) => [match.id, position]),
+    );
+    rounds[index].matches.sort((left, right) => {
+      const sourcePosition = (match: Match) =>
+        Math.min(
+          ...getSourceMatchIds(match).map(
+            (sourceId) => previousOrder.get(sourceId) ?? Number.POSITIVE_INFINITY,
+          ),
+        );
+      return sourcePosition(left) - sourcePosition(right);
+    });
+  }
+
+  for (let index = rounds.length - 2; index >= 0; index -= 1) {
+    const destinationOrder = new Map<string, number>();
+    rounds[index + 1].matches.forEach((match, position) => {
+      getSourceMatchIds(match).forEach((sourceId) => {
+        destinationOrder.set(sourceId, position);
+      });
+    });
+    rounds[index].matches.sort((left, right) => {
+      const leftPosition =
+        destinationOrder.get(left.id) ?? Number.POSITIVE_INFINITY;
+      const rightPosition =
+        destinationOrder.get(right.id) ?? Number.POSITIVE_INFINITY;
+      return leftPosition - rightPosition;
+    });
+  }
+
+  return rounds;
 }
 
 function BracketLane({
@@ -99,7 +146,7 @@ function BracketLane({
   eyebrow: string;
   matches: Match[];
 }) {
-  const rounds = [...new Set(matches.map((match) => match.round ?? 0))];
+  const rounds = getVisualRounds(matches);
 
   return (
     <section className="bracket-lane" aria-label={`${title} — ${eyebrow}`}>
@@ -109,14 +156,25 @@ function BracketLane({
       </div>
       <div className="bracket-scroll">
         <div className="bracket-rounds">
-          {rounds.map((round) => {
-            const roundMatches = matches.filter(
-              (match) => match.round === round,
-            );
+          {rounds.map(({ round, matches: roundMatches }, roundIndex) => {
+            const nextRoundMatches = rounds[roundIndex + 1]?.matches ?? [];
+            const singleMatchDestination =
+              roundMatches.length === 1
+                ? nextRoundMatches.findIndex((match) =>
+                    getSourceMatchIds(match).includes(roundMatches[0].id),
+                  )
+                : -1;
+            const alignmentClass =
+              nextRoundMatches.length > 1 && singleMatchDestination === 0
+                ? ' is-top-aligned'
+                : nextRoundMatches.length > 1 &&
+                    singleMatchDestination === nextRoundMatches.length - 1
+                  ? ' is-bottom-aligned'
+                  : '';
             return (
               <div className="bracket-round" key={`${title}-${round}`}>
                 <h5>{roundMatches[0]?.roundLabel}</h5>
-                <div className="round-matches">
+                <div className={`round-matches${alignmentClass}`}>
                   {roundMatches.map((match) => (
                     <BracketMatch key={match.id} match={match} />
                   ))}
@@ -252,7 +310,7 @@ export default function Home() {
             target="_blank"
             rel="noreferrer"
           >
-            Saisir un score <ArrowUpRight aria-hidden="true" />
+            Gérer les scores <ArrowUpRight aria-hidden="true" />
           </a>
         </nav>
       </header>
@@ -421,8 +479,7 @@ export default function Home() {
               <h2 id="upcoming-title">Les prochains duels</h2>
             </div>
             <p>
-              Les horaires et arbitres peuvent être renseignés lors de la saisie
-              du score.
+              Les duels s’affichent dès que leurs deux joueurs sont connus.
             </p>
           </div>
           <div className="upcoming-grid">

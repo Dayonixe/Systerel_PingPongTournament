@@ -10,11 +10,14 @@ npm install
 npm run dev
 ```
 
-## Modifier un résultat
+## Gérer un résultat
 
-Le bouton **Saisir un score** du site ouvre un formulaire GitHub. Seul le compte
-`Dayonixe` est accepté par l'automatisation. Une saisie valide met à jour
-`data/tournament.json`; le site est ensuite recalculé et republié.
+Le bouton **Gérer les scores** du site ouvre un formulaire GitHub permettant
+d'enregistrer, de corriger ou de supprimer un résultat. Seul le compte
+`Dayonixe` est accepté par l'automatisation. Une demande valide met à jour
+`data/tournament.json`; le site est ensuite recalculé et republié. Si une
+correction change le vainqueur, ou si un résultat est supprimé, les résultats
+déjà saisis qui en dépendent sont automatiquement effacés.
 
 Format attendu pour les sets : `11/7, 8/11, 12/10`.
 

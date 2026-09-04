@@ -19,7 +19,6 @@ export type Match = {
   home: ParticipantRef;
   away: ParticipantRef;
   sets: number[][];
-  referee: string | null;
 };
 
 export type Pool = {
