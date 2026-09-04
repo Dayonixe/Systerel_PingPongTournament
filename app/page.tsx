@@ -6,10 +6,12 @@ import {
   Clock3,
   GitBranch,
   Medal,
+  RefreshCcw,
   ShieldCheck,
   Swords,
   Trophy,
   UsersRound,
+  Zap,
 } from 'lucide-react';
 
 import tournamentData from '@/data/tournament.json';
@@ -525,7 +527,21 @@ export default function Home() {
             <CircleDot aria-hidden="true" />
             <span>
               <strong>11 points</strong>
-              Deux points d’écart obligatoires
+              Une manche se joue en 11 points
+            </span>
+          </div>
+          <div>
+            <RefreshCcw aria-hidden="true" />
+            <span>
+              <strong>Écart &amp; services</strong>
+              2 points d’écart · 2 services chacun, puis 1 chacun à 10–10 · service non croisé
+            </span>
+          </div>
+          <div>
+            <Zap aria-hidden="true" />
+            <span>
+              <strong>Volée autorisée</strong>
+              La balle peut être reprise avant son rebond
             </span>
           </div>
           <div>

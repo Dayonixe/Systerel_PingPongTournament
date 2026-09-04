@@ -977,7 +977,7 @@ body::before {
 
 .rules-strip {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   margin-top: 5rem;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
