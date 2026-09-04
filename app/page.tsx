@@ -574,9 +574,9 @@ export default function Home() {
               <h2 id="player-stats-title">Statistiques des joueurs</h2>
             </div>
             <p>
-              Le classement provisoire suit le nombre de victoires, puis la
-              différence de sets et de points. Ouvrez un joueur pour consulter
-              le détail de ses matchs.
+              Le parcours dans le tournoi détermine d’abord la position. Les
+              victoires, puis les différences de sets et de points départagent
+              les joueurs au même stade.
             </p>
           </div>
 
@@ -623,6 +623,22 @@ export default function Home() {
                   </summary>
 
                   <div className="player-stat-details">
+                    {standing.progress && (
+                      <p className="player-progress">
+                        <span data-status={standing.progress.status}>
+                          {standing.progress.status === 'champion'
+                            ? 'Champion'
+                            : standing.progress.status === 'runner-up'
+                              ? 'Finaliste'
+                              : standing.progress.status === 'eliminated'
+                                ? 'Éliminé'
+                                : 'En course'}
+                        </span>
+                        <strong>{standing.progress.label}</strong>
+                        <small>Match #{standing.progress.matchId}</small>
+                      </p>
+                    )}
+
                     <dl className="player-stat-grid">
                       <div>
                         <dt>Matchs joués</dt>

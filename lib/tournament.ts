@@ -63,6 +63,20 @@ export type Standing = {
   pointsLost: number;
 };
 
+export type PlayerProgress = {
+  phase: 'main' | 'secondary';
+  bracket: NonNullable<Match['bracket']>;
+  round: number;
+  roundLabel: string;
+  matchId: string;
+  status: 'active' | 'champion' | 'runner-up' | 'eliminated';
+  label: string;
+};
+
+export type PlayerStanding = Standing & {
+  progress: PlayerProgress | null;
+};
+
 const setWinner = (set: number[]) => (set[0] > set[1] ? 0 : 1);
 
 export function isMatchComplete(match: Match, setsToWin = 2) {
@@ -260,7 +274,104 @@ export function calculatePlayerStandings(tournament: Tournament) {
     }
   });
 
-  return [...standings.values()].sort((left, right) => {
+  const bracketPriority: Record<PlayerProgress['bracket'], number> = {
+    'grand-final': 3,
+    winner: 2,
+    loser: 1,
+  };
+  const statusPriority: Record<PlayerProgress['status'], number> = {
+    champion: 4,
+    'runner-up': 3,
+    active: 2,
+    eliminated: 1,
+  };
+  const progressScore = (match: Match) =>
+    (match.round ?? 0) * 10 + bracketPriority[match.bracket ?? 'loser'];
+
+  const rankedStandings: PlayerStanding[] = [...standings.values()].map(
+    (standing) => {
+      const appearances = tournament.matches.filter((match) => {
+        if (match.phase === 'pool') return false;
+        const home = resolveParticipant(match.home);
+        const away = resolveParticipant(match.away);
+        return (
+          home?.id === standing.player.id || away?.id === standing.player.id
+        );
+      });
+      const currentMatch = appearances
+        .filter(
+          (match) => !isMatchComplete(match, tournament.meta.rules.setsToWin),
+        )
+        .sort((left, right) => progressScore(right) - progressScore(left))[0];
+      const latestMatch = appearances
+        .filter((match) =>
+          isMatchComplete(match, tournament.meta.rules.setsToWin),
+        )
+        .sort((left, right) => progressScore(right) - progressScore(left))[0];
+      const progressMatch = currentMatch ?? latestMatch;
+
+      if (!progressMatch || progressMatch.phase === 'pool') {
+        return { ...standing, progress: null };
+      }
+
+      const phase = progressMatch.phase;
+      const bracket = progressMatch.bracket ?? 'winner';
+      const roundLabel = progressMatch.roundLabel ?? 'Tour en cours';
+      const bracketName = bracket === 'winner' ? 'winner' : 'loser';
+      const labelledRound =
+        bracket === 'grand-final' ||
+        roundLabel.toLocaleLowerCase('fr').includes(bracketName)
+          ? roundLabel
+          : `${roundLabel} ${bracketName}`;
+      let status: PlayerProgress['status'] = currentMatch
+        ? 'active'
+        : 'eliminated';
+
+      if (!currentMatch && bracket === 'grand-final') {
+        const home = resolveParticipant(progressMatch.home);
+        const winner = getMatchSideWinner(
+          progressMatch,
+          tournament.meta.rules.setsToWin,
+        );
+        const playerSide = home?.id === standing.player.id ? 'home' : 'away';
+        status = winner === playerSide ? 'champion' : 'runner-up';
+      }
+
+      return {
+        ...standing,
+        progress: {
+          phase,
+          bracket,
+          round: progressMatch.round ?? 0,
+          roundLabel,
+          matchId: progressMatch.id,
+          status,
+          label: `${labelledRound} · ${phase === 'main' ? 'principal' : 'secondaire'}`,
+        },
+      };
+    },
+  );
+
+  return rankedStandings.sort((left, right) => {
+    const phaseDiff =
+      (right.progress?.phase === 'main' ? 2 : right.progress ? 1 : 0) -
+      (left.progress?.phase === 'main' ? 2 : left.progress ? 1 : 0);
+    if (phaseDiff !== 0) return phaseDiff;
+
+    const roundDiff =
+      (right.progress?.round ?? 0) - (left.progress?.round ?? 0);
+    if (roundDiff !== 0) return roundDiff;
+
+    const bracketDiff =
+      (right.progress ? bracketPriority[right.progress.bracket] : 0) -
+      (left.progress ? bracketPriority[left.progress.bracket] : 0);
+    if (bracketDiff !== 0) return bracketDiff;
+
+    const statusDiff =
+      (right.progress ? statusPriority[right.progress.status] : 0) -
+      (left.progress ? statusPriority[left.progress.status] : 0);
+    if (statusDiff !== 0) return statusDiff;
+
     const winDiff = right.matchesWon - left.matchesWon;
     if (winDiff !== 0) return winDiff;
     const setDiff =
