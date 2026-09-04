@@ -2,6 +2,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   Check,
+  ChevronDown,
   CircleDot,
   Clock3,
   GitBranch,
@@ -17,6 +18,7 @@ import {
 import tournamentData from '@/data/tournament.json';
 import {
   calculatePoolStandings,
+  calculatePlayerStandings,
   createTournamentResolver,
   formatParticipantSource,
   getMatchSideWinner,
@@ -36,6 +38,51 @@ function getSetWins(match: Match) {
     },
     [0, 0],
   );
+}
+
+function getPlayerMatchHistory(playerId: number) {
+  const { resolveParticipant } = createTournamentResolver(tournament);
+
+  return tournament.matches
+    .flatMap((match) => {
+      if (!isMatchComplete(match, tournament.meta.rules.setsToWin)) return [];
+
+      const home = resolveParticipant(match.home);
+      const away = resolveParticipant(match.away);
+      if (!home || !away || (home.id !== playerId && away.id !== playerId)) {
+        return [];
+      }
+
+      const isHome = home.id === playerId;
+      const opponent = isHome ? away : home;
+      const winner = getMatchSideWinner(match, tournament.meta.rules.setsToWin);
+      const setWins = getSetWins(match);
+      const poolName = tournament.pools.find(
+        (pool) => pool.id === match.poolId,
+      )?.name;
+      const competition =
+        match.phase === 'pool'
+          ? (poolName ?? 'Poules')
+          : `Tableau ${match.phase === 'main' ? 'principal' : 'secondaire'}`;
+
+      return [
+        {
+          match,
+          opponent,
+          won: winner === (isHome ? 'home' : 'away'),
+          score: isHome
+            ? `${setWins[0]}–${setWins[1]}`
+            : `${setWins[1]}–${setWins[0]}`,
+          sets: match.sets.map(([homePoints, awayPoints]) =>
+            isHome
+              ? `${homePoints}/${awayPoints}`
+              : `${awayPoints}/${homePoints}`,
+          ),
+          competition,
+        },
+      ];
+    })
+    .sort((left, right) => Number(right.match.id) - Number(left.match.id));
 }
 
 function BracketMatch({ match }: { match: Match }) {
@@ -113,7 +160,8 @@ function getVisualRounds(matches: Match[]) {
       const sourcePosition = (match: Match) =>
         Math.min(
           ...getSourceMatchIds(match).map(
-            (sourceId) => previousOrder.get(sourceId) ?? Number.POSITIVE_INFINITY,
+            (sourceId) =>
+              previousOrder.get(sourceId) ?? Number.POSITIVE_INFINITY,
           ),
         );
       return sourcePosition(left) - sourcePosition(right);
@@ -274,6 +322,7 @@ export default function Home() {
   const nextMatch = readyMatches[0];
   const nextHome = nextMatch ? resolveParticipant(nextMatch.home) : null;
   const nextAway = nextMatch ? resolveParticipant(nextMatch.away) : null;
+  const playerStandings = calculatePlayerStandings(tournament);
 
   const stats = [
     { icon: UsersRound, value: tournament.players.length, label: 'joueurs' },
@@ -306,6 +355,7 @@ export default function Home() {
           <a href="#poules">Poules</a>
           <a href="#tableaux">Tableaux</a>
           <a href="#a-jouer">À jouer</a>
+          <a href="#statistiques">Statistiques</a>
           <a
             className="admin-link"
             href="https://github.com/Dayonixe/Systerel_PingPongTournament/issues/new?template=result.yml"
@@ -480,9 +530,7 @@ export default function Home() {
               <p className="section-kicker">Prêts à jouer</p>
               <h2 id="upcoming-title">Les prochains duels</h2>
             </div>
-            <p>
-              Les duels s’affichent dès que leurs deux joueurs sont connus.
-            </p>
+            <p>Les duels s’affichent dès que leurs deux joueurs sont connus.</p>
           </div>
           <div className="upcoming-grid">
             {readyMatches.map((match, index) => {
@@ -515,6 +563,139 @@ export default function Home() {
           </div>
         </section>
 
+        <section
+          className="section-block player-stats-section"
+          id="statistiques"
+          aria-labelledby="player-stats-title"
+        >
+          <div className="section-heading">
+            <div>
+              <p className="section-kicker">Classement général · en direct</p>
+              <h2 id="player-stats-title">Statistiques des joueurs</h2>
+            </div>
+            <p>
+              Le classement provisoire suit le nombre de victoires, puis la
+              différence de sets et de points. Ouvrez un joueur pour consulter
+              le détail de ses matchs.
+            </p>
+          </div>
+
+          <div className="player-ranking">
+            {playerStandings.map((standing, index) => {
+              const matchesPlayed = standing.matchesWon + standing.matchesLost;
+              const winRate = matchesPlayed
+                ? Math.round((standing.matchesWon / matchesPlayed) * 100)
+                : 0;
+              const setDifference = standing.setsWon - standing.setsLost;
+              const pointDifference = standing.pointsWon - standing.pointsLost;
+              const matchHistory = getPlayerMatchHistory(standing.player.id);
+              const signed = (value: number) =>
+                value > 0 ? `+${value}` : String(value);
+
+              return (
+                <details
+                  className="player-stat-card"
+                  data-podium={index < 3 ? index + 1 : undefined}
+                  key={standing.player.id}
+                >
+                  <summary>
+                    <span
+                      className="player-rank"
+                      aria-label={`Position ${index + 1}`}
+                    >
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span className="ranked-player">
+                      <strong>{standing.player.code}</strong>
+                      <small>Joueur {standing.player.id}</small>
+                    </span>
+                    <span className="ranking-summary">
+                      <span>
+                        <strong>{standing.matchesWon}</strong> victoire
+                        {standing.matchesWon > 1 ? 's' : ''}
+                      </span>
+                      <span>{standing.pointsWon} points marqués</span>
+                    </span>
+                    <ChevronDown
+                      className="player-stat-toggle"
+                      aria-hidden="true"
+                    />
+                  </summary>
+
+                  <div className="player-stat-details">
+                    <dl className="player-stat-grid">
+                      <div>
+                        <dt>Matchs joués</dt>
+                        <dd>{matchesPlayed}</dd>
+                      </div>
+                      <div>
+                        <dt>Victoires</dt>
+                        <dd>{standing.matchesWon}</dd>
+                      </div>
+                      <div>
+                        <dt>Défaites</dt>
+                        <dd>{standing.matchesLost}</dd>
+                      </div>
+                      <div>
+                        <dt>Taux de victoire</dt>
+                        <dd>{winRate} %</dd>
+                      </div>
+                      <div>
+                        <dt>Sets gagnés / perdus</dt>
+                        <dd>
+                          {standing.setsWon}–{standing.setsLost}{' '}
+                          <small>({signed(setDifference)})</small>
+                        </dd>
+                      </div>
+                      <div>
+                        <dt>Points marqués / encaissés</dt>
+                        <dd>
+                          {standing.pointsWon}–{standing.pointsLost}{' '}
+                          <small>({signed(pointDifference)})</small>
+                        </dd>
+                      </div>
+                    </dl>
+
+                    <div className="player-results">
+                      <h3>Matchs joués</h3>
+                      <ul>
+                        {matchHistory.map(
+                          ({
+                            match,
+                            opponent,
+                            won,
+                            score,
+                            sets,
+                            competition,
+                          }) => (
+                            <li key={match.id}>
+                              <span
+                                className={`result-badge ${won ? 'is-win' : 'is-loss'}`}
+                              >
+                                {won ? 'V' : 'D'}
+                              </span>
+                              <span className="result-opponent">
+                                <small>
+                                  Match #{match.id} · {competition}
+                                </small>
+                                <strong>contre {opponent.code}</strong>
+                              </span>
+                              <span className="result-score">
+                                <strong>{score}</strong>
+                                <small>{sets.join(' · ')}</small>
+                              </span>
+                            </li>
+                          ),
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                </details>
+              );
+            })}
+          </div>
+        </section>
+
         <section className="rules-strip" aria-label="Règles essentielles">
           <div>
             <GitBranch aria-hidden="true" />
@@ -533,8 +714,8 @@ export default function Home() {
           <div>
             <RefreshCcw aria-hidden="true" />
             <span>
-              <strong>Écart &amp; services</strong>
-              2 points d’écart · 2 services chacun, puis 1 chacun à 10–10 · service non croisé
+              <strong>Écart &amp; services</strong>2 points d’écart · 2 services
+              chacun, puis 1 chacun à 10–10 · service non croisé
             </span>
           </div>
           <div>

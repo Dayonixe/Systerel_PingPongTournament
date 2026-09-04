@@ -204,6 +204,75 @@ export function calculatePoolStandings(tournament: Tournament, pool: Pool) {
   });
 }
 
+export function calculatePlayerStandings(tournament: Tournament) {
+  const { resolveParticipant } = createTournamentResolver(tournament);
+  const standings = new Map<number, Standing>();
+
+  tournament.players.forEach((player) => {
+    standings.set(player.id, {
+      player,
+      matchesWon: 0,
+      matchesLost: 0,
+      setsWon: 0,
+      setsLost: 0,
+      pointsWon: 0,
+      pointsLost: 0,
+    });
+  });
+
+  tournament.matches.forEach((match) => {
+    const home = resolveParticipant(match.home);
+    const away = resolveParticipant(match.away);
+    if (
+      !home ||
+      !away ||
+      !isMatchComplete(match, tournament.meta.rules.setsToWin)
+    ) {
+      return;
+    }
+
+    const homeStanding = standings.get(home.id);
+    const awayStanding = standings.get(away.id);
+    if (!homeStanding || !awayStanding) return;
+
+    match.sets.forEach(([homePoints, awayPoints]) => {
+      homeStanding.pointsWon += homePoints;
+      homeStanding.pointsLost += awayPoints;
+      awayStanding.pointsWon += awayPoints;
+      awayStanding.pointsLost += homePoints;
+
+      if (homePoints > awayPoints) {
+        homeStanding.setsWon += 1;
+        awayStanding.setsLost += 1;
+      } else {
+        awayStanding.setsWon += 1;
+        homeStanding.setsLost += 1;
+      }
+    });
+
+    const winner = getMatchSideWinner(match, tournament.meta.rules.setsToWin);
+    if (winner === 'home') {
+      homeStanding.matchesWon += 1;
+      awayStanding.matchesLost += 1;
+    } else {
+      awayStanding.matchesWon += 1;
+      homeStanding.matchesLost += 1;
+    }
+  });
+
+  return [...standings.values()].sort((left, right) => {
+    const winDiff = right.matchesWon - left.matchesWon;
+    if (winDiff !== 0) return winDiff;
+    const setDiff =
+      right.setsWon - right.setsLost - (left.setsWon - left.setsLost);
+    if (setDiff !== 0) return setDiff;
+    const pointDiff =
+      right.pointsWon - right.pointsLost - (left.pointsWon - left.pointsLost);
+    if (pointDiff !== 0) return pointDiff;
+    return left.player.id - right.player.id;
+  });
+}
+
 export function formatParticipantSource(participant: ParticipantRef) {
   if ('playerId' in participant) return `Joueur ${participant.playerId}`;
   if ('slotId' in participant) return `N°${participant.slotId}`;
