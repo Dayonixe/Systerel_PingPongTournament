@@ -143,6 +143,69 @@ export function createTournamentResolver(tournament: Tournament) {
   return { playerMap, slotMap, matchMap, resolveParticipant };
 }
 
+function referencesMatch(participant: ParticipantRef, matchId: string) {
+  return (
+    ('winnerOf' in participant && participant.winnerOf === matchId) ||
+    ('loserOf' in participant && participant.loserOf === matchId)
+  );
+}
+
+export function getReadyMatches(tournament: Tournament) {
+  const { resolveParticipant } = createTournamentResolver(tournament);
+  const setsToWin = tournament.meta.rules.setsToWin;
+  const readyMatches = tournament.matches.filter(
+    (match) =>
+      match.phase !== 'pool' &&
+      !isMatchComplete(match, setsToWin) &&
+      resolveParticipant(match.home) &&
+      resolveParticipant(match.away),
+  );
+
+  const immediatelyUnlocked = new Map(
+    readyMatches.map((match) => {
+      const count = tournament.matches.filter((candidate) => {
+        if (
+          candidate.phase === 'pool' ||
+          isMatchComplete(candidate, setsToWin)
+        ) {
+          return false;
+        }
+
+        const participants = [candidate.home, candidate.away];
+        if (
+          !participants.some((participant) =>
+            referencesMatch(participant, match.id),
+          )
+        ) {
+          return false;
+        }
+
+        return participants.every(
+          (participant) =>
+            referencesMatch(participant, match.id) ||
+            Boolean(resolveParticipant(participant)),
+        );
+      }).length;
+
+      return [match.id, count] as const;
+    }),
+  );
+
+  return readyMatches.sort((left, right) => {
+    const roundDifference =
+      (left.round ?? Number.MAX_SAFE_INTEGER) -
+      (right.round ?? Number.MAX_SAFE_INTEGER);
+    if (roundDifference !== 0) return roundDifference;
+
+    const unlockDifference =
+      (immediatelyUnlocked.get(right.id) ?? 0) -
+      (immediatelyUnlocked.get(left.id) ?? 0);
+    if (unlockDifference !== 0) return unlockDifference;
+
+    return Number(left.id) - Number(right.id);
+  });
+}
+
 export function calculatePoolStandings(tournament: Tournament, pool: Pool) {
   const { playerMap, resolveParticipant } =
     createTournamentResolver(tournament);

@@ -21,6 +21,7 @@ import {
   calculatePlayerStandings,
   createTournamentResolver,
   formatParticipantSource,
+  getReadyMatches,
   getMatchSideWinner,
   isMatchComplete,
   type Match,
@@ -310,15 +311,7 @@ export default function Home() {
   const completedMatches = tournament.matches.filter((match) =>
     isMatchComplete(match, tournament.meta.rules.setsToWin),
   );
-  const readyMatches = tournament.matches
-    .filter(
-      (match) =>
-        match.phase !== 'pool' &&
-        !isMatchComplete(match, tournament.meta.rules.setsToWin) &&
-        resolveParticipant(match.home) &&
-        resolveParticipant(match.away),
-    )
-    .sort((left, right) => Number(left.id) - Number(right.id));
+  const readyMatches = getReadyMatches(tournament);
   const nextMatch = readyMatches[0];
   const nextHome = nextMatch ? resolveParticipant(nextMatch.home) : null;
   const nextAway = nextMatch ? resolveParticipant(nextMatch.away) : null;
