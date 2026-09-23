@@ -28,6 +28,7 @@ yarn-error.log*
 
 # local environment
 .env*
+.rtk-local/
 
 # deployment and generated files
 .openai/

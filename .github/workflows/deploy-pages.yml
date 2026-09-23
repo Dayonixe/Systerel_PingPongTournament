@@ -18,6 +18,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Attendre l'ancienne publication GitHub Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_SHA: ${{ github.sha }}
+        run: |
+          build_type="$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.build_type // "legacy"')"
+
+          if [ "$build_type" != "legacy" ]; then
+            exit 0
+          fi
+
+          for attempt in {1..60}; do
+            latest_build="$(gh api "repos/$GITHUB_REPOSITORY/pages/builds/latest" --jq '[.commit, .status] | @tsv' 2>/dev/null || true)"
+            read -r build_sha build_status <<< "$latest_build"
+
+            if [ "$build_sha" = "$TARGET_SHA" ] && [ "$build_status" = "built" ]; then
+              exit 0
+            fi
+
+            sleep 5
+          done
+
+          echo "::warning::La publication automatique de la branche n'a pas terminé dans le délai prévu."
+
       - name: Récupérer le dépôt
         uses: actions/checkout@v6
 
