@@ -1,0 +1,33 @@
+{
+  "id": "./",
+  "name": "Tournoi de l'été · Systerel Ping-pong",
+  "short_name": "Systerel TT",
+  "description": "Scores, classements et tableaux du tournoi de ping-pong Systerel.",
+  "lang": "fr-FR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f1e7",
+  "theme_color": "#123d36",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icons/pwa-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/pwa-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/pwa-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

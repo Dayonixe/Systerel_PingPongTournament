@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#123d36" />
+    <title>Hors connexion · Systerel Ping-pong</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        color: #123d36;
+        background: #f5f1e7;
+      }
+
+      body {
+        display: grid;
+        min-height: 100vh;
+        margin: 0;
+        padding: 1.5rem;
+        place-items: center;
+        box-sizing: border-box;
+      }
+
+      main {
+        width: min(100%, 32rem);
+        padding: 2rem;
+        border: 2px solid #123d36;
+        border-radius: 1.25rem;
+        background: #fffdf7;
+        box-shadow: 0.5rem 0.5rem 0 #dfe5d8;
+      }
+
+      h1 {
+        margin: 0 0 0.75rem;
+        font-size: clamp(2rem, 8vw, 3rem);
+        line-height: 1;
+      }
+
+      p {
+        color: #5f706c;
+        line-height: 1.6;
+      }
+
+      button {
+        margin-top: 0.75rem;
+        padding: 0.8rem 1.1rem;
+        border: 0;
+        border-radius: 999px;
+        color: #fffdf7;
+        background: #e66545;
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Hors connexion</h1>
+      <p>
+        Les scores du tournoi ne sont pas mis en cache afin de toujours afficher
+        leur dernière version. Reconnectez-vous puis réessayez.
+      </p>
+      <button type="button" onclick="window.location.reload()">
+        Réessayer
+      </button>
+    </main>
+  </body>
+</html>
