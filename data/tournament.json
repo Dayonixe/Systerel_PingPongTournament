@@ -3,7 +3,7 @@
     "title": "Tournoi de l'été",
     "subtitle": "Systerel · Ping-pong",
     "administrator": "Dayonixe",
-    "updatedAt": "2026-10-13T14:38:51.322Z",
+    "updatedAt": "2026-10-13T14:40:27.701Z",
     "rules": {
       "setsToWin": 2,
       "pointsToWin": 11,
@@ -638,7 +638,20 @@
       "away": {
         "winnerOf": "30"
       },
-      "sets": []
+      "sets": [
+        [
+          9,
+          11
+        ],
+        [
+          11,
+          9
+        ],
+        [
+          7,
+          11
+        ]
+      ]
     },
     {
       "id": "36",
